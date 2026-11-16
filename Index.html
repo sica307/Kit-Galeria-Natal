@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit Galeria de Natal em Casa — Arte Pronta para Imprimir</title>
+    <!-- Carregamento do Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregamento das Fontes Google (Playfair Display para títulos e Plus Jakarta Sans para leitura limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        natal: {
+                            creme: '#FCFBF7',
+                            papel: '#F5F1E8',
+                            bordo: '#7F1D1D',
+                            bordoEscuro: '#5C1111',
+                            pinheiro: '#143D2B',
+                            pinheiroClaro: '#1E563D',
+                            dourado: '#B45309',
+                            douradoClaro: '#D97706',
+                            ouroSuave: '#F3E5AB',
+                            texto: '#292524'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'moldura': '0 20px 35px -10px rgba(41, 37, 36, 0.18), 0 8px 15px -6px rgba(127, 29, 29, 0.12)',
+                        'card': '0 10px 30px -5px rgba(20, 61, 43, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Textura sutil de papel artesanal no fundo */
+        body {
+            background-color: #FCFBF7;
+            color: #292524;
+            background-image: radial-gradient(#d6cbb8 0.6px, transparent 0.6px);
+            background-size: 24px 24px;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #92400E 100%);
+        }
+        .bordo-gradient {
+            background: linear-gradient(135deg, #881313 0%, #630D0D 100%);
+        }
+        .pinheiro-gradient {
+            background: linear-gradient(135deg, #143D2B 0%, #0D291D 100%);
+        }
+        /* Animação suave de flutuação para o mockup */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-6px) rotate(0deg); }
+        }
+        .animate-mockup {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-natal-bordo selection:text-white">
+
+    <!-- ===================================================================== -->
+    <!-- PAINEL DISCRETO DO PRODUTOR (COLAPSÁVEL PARA CONFIGURAR CHECKOUT)     -->
+    <!-- ===================================================================== -->
+    <div id="config-bar" class="bg-stone-900 text-stone-200 text-xs py-2.5 px-4 border-b border-amber-500/30">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span><strong>Modo de Edição Rápida:</strong> Cole seus links de pagamento para testar os botões agora ou edite diretamente no HTML.</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleConfigPanel()" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-3 py-1 rounded-full transition cursor-pointer">
+                    Configurar Links de Checkout
+                </button>
+                <button onclick="document.getElementById('config-bar').style.display='none'" class="text-stone-400 hover:text-white px-2 py-1" title="Fechar barra">
+                    ✕
+                </button>
+            </div>
+        </div>
+        
+        <!-- Formulário expansível para colar links -->
+        <div id="config-panel" class="hidden max-w-6xl mx-auto mt-3 pt-3 border-t border-stone-700 grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+            <div>
+                <label class="block text-stone-400 mb-1">Link Checkout — Pacote Essencial (R$ 19,90):</label>
+                <input type="url" id="input-link-essencial" placeholder="https://pay.seucheckout.com/essencial" class="w-full bg-stone-800 border border-stone-600 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-amber-400">
+            </div>
+            <div>
+                <label class="block text-stone-400 mb-1">Link Checkout — Kit Completo (R$ 29,90):</label>
+                <input type="url" id="input-link-completo" placeholder="https://pay.seucheckout.com/completo" class="w-full bg-stone-800 border border-stone-600 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-amber-400">
+            </div>
+            <div class="flex gap-2">
+                <button onclick="aplicarLinksCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-1.5 px-4 rounded-lg transition cursor-pointer">
+                    Aplicar nos Botões
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faixa Superior Festiva -->
+    <div class="pinheiro-gradient text-natal-creme text-center py-2.5 px-4 text-xs sm:text-sm tracking-wide font-medium border-b border-amber-500/30">
+        🎄 <span class="text-amber-200 font-semibold">Edição Especial de Natal:</span> Acesso imediato por e-mail • Imprima quantas vezes quiser em casa
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 1. HEADER / HERO SECTION (Headline + Subheadline + Capa do Produto)   -->
+    <!-- ===================================================================== -->
+    <header class="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 px-4 sm:px-6 lg:px-8">
+        <!-- Ornamento decorativo sutil de fundo -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-amber-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+                
+                <!-- Coluna de Texto (Headline + Subheadline + CTA) -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-natal-papel border border-amber-700/25 px-4 py-1.5 rounded-full text-natal-bordo text-xs sm:text-sm font-semibold shadow-sm">
+                        <span>✨ Decoração Natalina Pronta em A4</span>
+                    </div>
+
+                    <h1 class="font-serif text-3xl sm:text-4xl lg:text-[2.85rem] font-bold text-natal-pinheiro leading-[1.18] tracking-tight">
+                        Transforme a Sua Casa Para o Natal em <span class="text-natal-bordo italic">Menos de 10 Minutos</span> Sem Gastar Uma Fortuna com Decoração
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-stone-700 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Baixe, imprima em casa e monte uma galeria natalina elegante, acolhedora e exclusiva com artes prontas em alta resolução.
+                    </p>
+
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#planos" class="w-full sm:w-auto bordo-gradient hover:opacity-95 text-white font-semibold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-lg shadow-red-950/20 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5">
+                            <span>Escolher Meu Kit de Natal</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </a>
+                        <div class="flex items-center gap-2 text-xs sm:text-sm text-stone-600">
+                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 text-natal-pinheiro font-bold">✓</span>
+                            <span>Download imediato em PDF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Visual: Capa do Produto (Mockup 3D Ilustrado) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-[380px] sm:max-w-[420px]">
+                        
+                        <!-- Miniatura de Quadro Flutuante Esquerda -->
+                        <div class="hidden sm:flex flex-col items-center justify-center w-28 h-36 bg-white p-2 rounded-xl shadow-lg border-4 border-natal-pinheiro absolute -left-8 top-8 -rotate-12 z-10">
+                            <div class="w-full h-full border border-amber-600/40 flex flex-col items-center justify-center p-1.5 text-center bg-natal-creme">
+                                <span class="text-lg">🎄</span>
+                                <span class="font-serif text-[10px] font-bold text-natal-bordo leading-tight mt-1">Natal de Luz</span>
+                                <span class="text-[7px] text-natal-pinheiro italic mt-0.5">Boas Festas</span>
+                            </div>
+                        </div>
+
+                        <!-- Miniatura de Tag/Cartão Flutuante Direita -->
+                        <div class="hidden sm:flex flex-col items-center justify-center w-28 h-36 bg-white p-2 rounded-xl shadow-lg border-4 border-natal-bordo absolute -right-7 bottom-12 rotate-12 z-10">
+                            <div class="w-full h-full border border-amber-600/40 flex flex-col items-center justify-center p-1.5 text-center bg-natal-creme">
+                                <span class="text-lg">🎁</span>
+                                <span class="font-serif text-[10px] font-bold text-natal-pinheiro leading-tight mt-1">Com Carinho</span>
+                                <div class="w-12 border-b border-stone-300 mt-1.5"></div>
+                                <div class="w-12 border-b border-stone-300 mt-1.5"></div>
+                            </div>
+                        </div>
+
+                        <!-- CAPA PRINCIPAL DO PRODUTO DIGITAL (MOCKUP SQUARE) -->
+                        <div class="animate-mockup relative bg-white p-3.5 sm:p-4 rounded-3xl shadow-moldura border border-amber-700/20 z-20">
+                            <div class="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-b from-[#FBF8F1] via-[#F5EFE2] to-[#EDE3D0] border-2 border-amber-600/40 p-5 flex flex-col justify-between items-center text-center">
+                                
+                                <!-- Cantoneiras Decorativas -->
+                                <div class="absolute top-2.5 left-2.5 w-6 h-6 border-t-2 border-l-2 border-natal-bordo/60 rounded-tl-sm"></div>
+                                <div class="absolute top-2.5 right-2.5 w-6 h-6 border-t-2 border-r-2 border-natal-bordo/60 rounded-tr-sm"></div>
+                                <div class="absolute bottom-2.5 left-2.5 w-6 h-6 border-b-2 border-l-2 border-natal-bordo/60 rounded-bl-sm"></div>
+                                <div class="absolute bottom-2.5 right-2.5 w-6 h-6 border-b-2 border-r-2 border-natal-bordo/60 rounded-br-sm"></div>
+
+                                <!-- Selos Superiores: Download Imediato & Imprima em Casa -->
+                                <div class="w-full flex items-center justify-between gap-2 z-10">
+                                    <span class="bg-natal-pinheiro text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
+                                        ⚡ Download Imediato
+                                    </span>
+                                    <span class="bg-natal-bordo text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
+                                        🖨️ Imprima em Casa
+                                    </span>
+                                </div>
+
+                                <!-- Centro da Capa: Número Grande + Título -->
+                                <div class="my-auto py-2 flex flex-col items-center">
+                                    <div class="flex items-center gap-2 text-amber-700 text-xs font-semibold tracking-widest uppercase mb-1">
+                                        <span>★</span>
+                                        <span>Coleção Completa A4</span>
+                                        <span>★</span>
+                                    </div>
+                                    
+                                    <!-- Número Grande em Destaque -->
+                                    <div class="font-serif text-6xl sm:text-7xl font-bold text-natal-bordo leading-none drop-shadow-sm">
+                                        50
+                                    </div>
+                                    <div class="text-xs sm:text-sm font-bold tracking-[0.2em] text-natal-pinheiro uppercase mt-1 bg-amber-500/15 px-3 py-0.5 rounded-full">
+                                        Arquivos Digitais
+                                    </div>
+
+                                    <!-- Título do Produto na Capa -->
+                                    <h2 class="font-serif text-xl sm:text-2xl font-bold text-natal-pinheiro mt-3 leading-tight">
+                                        Kit Galeria de Natal em Casa
+                                    </h2>
+                                    <p class="text-[11px] sm:text-xs text-stone-600 mt-1">
+                                        Quadros Decorativos • Cartões • Tags de Presente
+                                    </p>
+                                </div>
+
+                                <!-- Rodapé da Capa com Amostras Ilustradas -->
+                                <div class="w-full pt-2 border-t border-amber-700/20 flex items-center justify-center gap-3 text-xs text-natal-pinheiro font-medium">
+                                    <span>🖼️ 20 Quadros</span>
+                                    <span>•</span>
+                                    <span>💌 15 Cartões</span>
+                                    <span>•</span>
+                                    <span>🏷️ 10 Tags</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Divisor Ornamental -->
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-center gap-4 text-amber-700/50">
+        <div class="h-px bg-amber-700/20 flex-1"></div>
+        <span class="text-lg">❄ 🎄 ❄</span>
+        <div class="h-px bg-amber-700/20 flex-1"></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 2. DEMONSTRAÇÃO DO QUE VEM DENTRO                                     -->
+    <!-- ===================================================================== -->
+    <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-natal-bordo font-semibold text-sm uppercase tracking-wider">Veja na Prática</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-natal-pinheiro mt-2">
+                    Uma Coleção Pensada para Deixar Cada Cantinho da Casa Acolhedor
+                </h2>
+                <p class="text-stone-600 mt-3 text-base sm:text-lg">
+                    Todos os arquivos já vão diagramados no tamanho padrão brasileiro (A4). Basta imprimir na sua impressora ou em qualquer gráfica rápida e colocar nas suas molduras.
+                </p>
+            </div>
+
+            <!-- Galeria Visual de Amostras (Mockups dos Quadros, Cartões e Tags) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                
+                <!-- Amostra 1: Quadro Natal de Luz -->
+                <div class="bg-white p-4 rounded-2xl shadow-card border border-stone-200/80 flex flex-col items-center group hover:-translate-y-1 transition duration-300">
+                    <div class="w-full aspect-[3/4] bg-[#2C1810] p-3 rounded-xl shadow-inner flex items-center justify-center">
+                        <div class="w-full h-full bg-[#FCFBF7] border border-amber-600/30 p-4 flex flex-col items-center justify-center text-center relative">
+                            <!-- Guirlanda SVG -->
+                            <svg class="w-16 h-16 text-natal-pinheiro mb-3" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="5" stroke-dasharray="4 3"/>
+                                <circle cx="32" cy="32" r="16" stroke="#1E563D" stroke-width="3"/>
+                                <path d="M26 13L32 18L38 13L35 20L32 18L29 20L26 13Z" fill="#991B1B"/>
+                                <circle cx="20" cy="24" r="2" fill="#991B1B"/>
+                                <circle cx="44" cy="26" r="2" fill="#991B1B"/>
+                                <circle cx="24" cy="44" r="2" fill="#D97706"/>
+                                <circle cx="40" cy="42" r="2" fill="#991B1B"/>
+                            </svg>
+                            <p class="font-serif text-xl font-bold text-natal-bordo leading-tight">Natal de Luz</p>
+                            <p class="font-serif italic text-xs text-natal-pinheiro mt-1.5">Que a paz e o amor habitem este lar</p>
+                            <div class="mt-3 text-[10px] tracking-widest text-amber-700">★ ★ ★</div>
+                        </div>
+                    </div>
+                    <span class="mt-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Quadro Decorativo A4</span>
+                </div>
+
+                <!-- Amostra 2: Quadro Boas Festas -->
+                <div class="bg-white p-4 rounded-2xl shadow-card border border-stone-200/80 flex flex-col items-center group hover:-translate-y-1 transition duration-300">
+                    <div class="w-full aspect-[3/4] bg-[#78350F] p-3 rounded-xl shadow-inner flex items-center justify-center">
+                        <div class="w-full h-full bg-[#FCFBF7] border-2 border-natal-pinheiro/40 p-4 flex flex-col items-center justify-center text-center">
+                            <span class="text-xs uppercase tracking-[0.2em] text-amber-700 font-semibold mb-2">Celebração</span>
+                            <p class="font-serif text-2xl font-bold text-natal-pinheiro leading-none">Boas<br><span class="text-natal-bordo italic">Festas</span></p>
+                            <!-- Pinheiro Minimalista SVG -->
+                            <svg class="w-14 h-16 my-3 text-natal-pinheiro" viewBox="0 0 64 64" fill="currentColor">
+                                <polygon points="32,6 18,26 26,26 14,42 23,42 10,56 54,56 41,42 50,42 38,26 46,26"/>
+                                <circle cx="32" cy="5" r="3" fill="#D97706"/>
+                            </svg>
+                            <p class="text-[11px] text-stone-600">Tempo de união e gratidão</p>
+                        </div>
+                    </div>
+                    <span class="mt-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Quadro Minimalista A4</span>
+                </div>
+
+                <!-- Amostra 3: Cartões Dobráveis -->
+                <div class="bg-white p-4 rounded-2xl shadow-card border border-stone-200/80 flex flex-col items-center group hover:-translate-y-1 transition duration-300">
+                    <div class="w-full aspect-[3/4] bg-natal-papel p-4 rounded-xl flex flex-col justify-center gap-3 relative overflow-hidden">
+                        <!-- Cartão 1 -->
+                        <div class="bg-white p-3.5 rounded-lg shadow-md border border-amber-700/25 transform -rotate-2">
+                            <div class="flex items-center justify-between border-b border-dashed border-stone-200 pb-2 mb-2">
+                                <span class="font-serif font-bold text-sm text-natal-bordo">Feliz Natal!</span>
+                                <span class="text-sm">🎄</span>
+                            </div>
+                            <p class="font-serif italic text-[11px] text-stone-600 leading-snug">
+                                "Que a magia desta noite renove todas as suas esperanças."
+                            </p>
+                        </div>
+                        <!-- Cartão 2 -->
+                        <div class="bg-white p-3.5 rounded-lg shadow-md border border-natal-pinheiro/25 transform rotate-2">
+                            <div class="flex items-center justify-between border-b border-dashed border-stone-200 pb-2 mb-2">
+                                <span class="font-serif font-bold text-sm text-natal-pinheiro">Com Carinho</span>
+                                <span class="text-sm">✨</span>
+                            </div>
+                            <p class="font-serif italic text-[11px] text-stone-600 leading-snug">
+                                "Obrigada por fazer parte da nossa história neste ano!"
+                            </p>
+                        </div>
+                    </div>
+                    <span class="mt-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Cartões Dobráveis</span>
+                </div>
+
+                <!-- Amostra 4: Etiquetas De / Para -->
+                <div class="bg-white p-4 rounded-2xl shadow-card border border-stone-200/80 flex flex-col items-center group hover:-translate-y-1 transition duration-300">
+                    <div class="w-full aspect-[3/4] bg-natal-papel p-4 rounded-xl flex flex-col justify-center gap-3">
+                        <!-- Tag 1 -->
+                        <div class="bg-white p-3 rounded-xl shadow-sm border-2 border-natal-bordo/70 relative">
+                            <div class="w-3 h-3 rounded-full border border-natal-bordo mx-auto mb-1 bg-natal-papel"></div>
+                            <p class="font-serif font-bold text-center text-xs text-natal-bordo">🎁 Especial para Você</p>
+                            <div class="mt-2 space-y-1 text-[11px] text-natal-pinheiro">
+                                <p><strong>De:</strong> <span class="text-stone-400">________________</span></p>
+                                <p><strong>Para:</strong> <span class="text-stone-400">______________</span></p>
+                            </div>
+                        </div>
+                        <!-- Tag 2 -->
+                        <div class="bg-white p-3 rounded-xl shadow-sm border-2 border-natal-pinheiro/70 relative">
+                            <div class="w-3 h-3 rounded-full border border-natal-pinheiro mx-auto mb-1 bg-natal-papel"></div>
+                            <p class="font-serif font-bold text-center text-xs text-natal-pinheiro">⭐ Boas Festas</p>
+                            <div class="mt-2 space-y-1 text-[11px] text-natal-bordo">
+                                <p><strong>De:</strong> <span class="text-stone-400">________________</span></p>
+                                <p><strong>Para:</strong> <span class="text-stone-400">______________</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="mt-3 text-xs font-semibold text-stone-500 uppercase tracking-wider">Tags "De / Para"</span>
+                </div>
+
+            </div>
+
+            <!-- 3 Pilares de Destaque -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-7 rounded-2xl border border-amber-700/15 shadow-sm flex flex-col items-start">
+                    <div class="w-12 h-12 rounded-xl bg-red-50 text-natal-bordo flex items-center justify-center text-2xl mb-4 border border-red-100">
+                        🖼️
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-natal-pinheiro mb-2">
+                        Quadros para Todos os Ambientes
+                    </h3>
+                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                        Desde a sala de estar até o cantinho do café. Combine as artes em porta-retratos que você já tem em casa e renove o visual sem reforma.
+                    </p>
+                </div>
+
+                <div class="bg-white p-7 rounded-2xl border border-amber-700/15 shadow-sm flex flex-col items-start">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-natal-pinheiro flex items-center justify-center text-2xl mb-4 border border-emerald-100">
+                        💌
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-natal-pinheiro mb-2">
+                        Cartões Especiais
+                    </h3>
+                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                        Para emocionar quem você ama junto com os presentes ou decorar os lugares da mesa na noite da ceia com mensagens cheias de afeto.
+                    </p>
+                </div>
+
+                <div class="bg-white p-7 rounded-2xl border border-amber-700/15 shadow-sm flex flex-col items-start">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-natal-dourado flex items-center justify-center text-2xl mb-4 border border-amber-100">
+                        🏷️
+                    </div>
+                    <h3 class="font-serif text-xl font-bold text-natal-pinheiro mb-2">
+                        Tags Exclusivas
+                    </h3>
+                    <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                        O toque final de carinho em cada embalagem. Basta imprimir, recortar, fazer um furinho e amarrar com fita ou barbante nos pacotes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. LISTA DE TÓPICOS DO PACOTE (O que você vai receber)                -->
+    <!-- ===================================================================== -->
+    <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-natal-papel/70 border-y border-amber-800/10">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-card border border-amber-700/20">
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-natal-pinheiro/10 text-natal-pinheiro font-semibold text-xs uppercase tracking-widest px-3.5 py-1 rounded-full mb-3">
+                        Conteúdo Completo
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-natal-pinheiro">
+                        O Que Você Vai Receber Imediatamente
+                    </h2>
+                    <p class="text-stone-600 mt-2">
+                        Tudo organizado em arquivos digitais prontos para baixar no celular ou computador e imprimir:
+                    </p>
+                </div>
+
+                <div class="space-y-5">
+                    <!-- Item 1 -->
+                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-natal-creme border border-stone-200/70">
+                        <div class="w-8 h-8 rounded-full bg-natal-pinheiro text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm">
+                            ✓
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg sm:text-xl font-bold text-natal-bordo">
+                                20 Quadros Decorativos (A4)
+                            </h3>
+                            <p class="text-stone-600 text-sm sm:text-base mt-1">
+                                Ilustrações exclusivas em tons clássicos de vermelho, verde e dourado. Modelos com frases natalinas, guirlandas, pinheiros e elementos acolhedores.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-natal-creme border border-stone-200/70">
+                        <div class="w-8 h-8 rounded-full bg-natal-pinheiro text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm">
+                            ✓
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg sm:text-xl font-bold text-natal-bordo">
+                                15 Cartões de Natal Dobráveis
+                            </h3>
+                            <p class="text-stone-600 text-sm sm:text-base mt-1">
+                                Modelos com mensagens carinhosas e design elegante, com marcação discreta de dobra e espaço interno para você escrever sua dedicatória à mão.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-natal-creme border border-stone-200/70">
+                        <div class="w-8 h-8 rounded-full bg-natal-pinheiro text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm">
+                            ✓
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg sm:text-xl font-bold text-natal-bordo">
+                                10 Etiquetas / Tags "De / Para"
+                            </h3>
+                            <p class="text-stone-600 text-sm sm:text-base mt-1">
+                                Prontas para recortar e amarrar nos presentes, combinando perfeitamente com as cores dos quadros e cartões do kit.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-natal-creme border border-stone-200/70">
+                        <div class="w-8 h-8 rounded-full bg-natal-pinheiro text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm">
+                            ✓
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg sm:text-xl font-bold text-natal-bordo">
+                                Guia Prático de Impressão (PDF)
+                            </h3>
+                            <p class="text-stone-600 text-sm sm:text-base mt-1">
+                                Dicas simples sobre papéis (offset, couche, fotográfico) e configuração ideal da impressora para você ter um resultado impecável sem desperdício de tinta.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. BÔNUS EXCLUSIVOS (Apenas para compras hoje)                        -->
+    <!-- ===================================================================== -->
+    <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 font-bold text-xs uppercase tracking-wider px-4 py-1.5 rounded-full border border-amber-300">
+                    🎁 Presentes Especiais
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-natal-pinheiro mt-3">
+                    Bônus Exclusivos Para Compras Hoje
+                </h2>
+                <p class="text-stone-600 mt-2">
+                    Garantindo o Kit Completo hoje, você recebe gratuitamente dois materiais extras para deixar sua ceia ainda mais encantadora:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Bônus 1 -->
+                <div class="relative bg-white rounded-3xl p-7 sm:p-8 shadow-card border-2 border-amber-500/40 flex flex-col justify-between">
+                    <div class="absolute -top-3.5 right-6 gold-gradient text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full shadow">
+                        GRÁTIS HOJE
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl mb-5">
+                            📐
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-natal-dourado">Bônus 01</span>
+                        <h3 class="font-serif text-2xl font-bold text-natal-pinheiro mt-1 mb-3">
+                            Guia de Combinações de Molduras e Galerias de Parede (PDF)
+                        </h3>
+                        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                            Não sabe como dispor os quadros na parede ou aparador? Veja sugestões prontas de alinhamento, mistura de tamanhos e cores de molduras para harmonizar com a sua sala.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-sm">
+                        <span class="text-stone-400 line-through">Valor separado: R$ 27,00</span>
+                        <span class="font-bold text-natal-pinheiro">Incluso no Kit Completo</span>
+                    </div>
+                </div>
+
+                <!-- Bônus 2 -->
+                <div class="relative bg-white rounded-3xl p-7 sm:p-8 shadow-card border-2 border-amber-500/40 flex flex-col justify-between">
+                    <div class="absolute -top-3.5 right-6 gold-gradient text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full shadow">
+                        GRÁTIS HOJE
+                    </div>
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl mb-5">
+                            🍽️
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-natal-dourado">Bônus 02</span>
+                        <h3 class="font-serif text-2xl font-bold text-natal-pinheiro mt-1 mb-3">
+                            Plaquinhas Decorativas para Mesa de Ceia de Natal
+                        </h3>
+                        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                            Conjunto de plaquinhas dobráveis ("Feliz Natal", "Bem-vindos", marcadores de pratos e doces) para dar um charme especial à mesa posta da sua família.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-sm">
+                        <span class="text-stone-400 line-through">Valor separado: R$ 24,00</span>
+                        <span class="font-bold text-natal-pinheiro">Incluso no Kit Completo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. DOIS CARDS DE PREÇO (Pacote Essencial vs Kit Galeria Completo)     -->
+    <!-- ===================================================================== -->
+    <section id="planos" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 pinheiro-gradient text-natal-creme relative overflow-hidden">
+        <!-- Detalhe sutil de luz -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-red-900/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-amber-300 font-semibold text-sm uppercase tracking-widest">Escolha Sua Opção</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">
+                    Comece a Decorar Sua Casa Hoje Mesmo
+                </h2>
+                <p class="text-stone-300 mt-3 text-base sm:text-lg">
+                    Pagamento único, sem mensalidades. Escolha o pacote ideal para o seu Natal e receba o acesso na hora.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+                
+                <!-- ========================================================= -->
+                <!-- CARD 1: PACOTE ESSENCIAL                                  -->
+                <!-- ========================================================= -->
+                <div class="bg-natal-creme text-natal-texto rounded-3xl p-8 sm:p-10 shadow-xl border border-stone-200 flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block bg-stone-200 text-stone-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                            Opção Básica
+                        </span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-natal-pinheiro mt-3">
+                            Pacote Essencial
+                        </h3>
+                        <p class="text-stone-600 text-sm mt-2">
+                            Ideal para quem quer apenas a arte de parede principal.
+                        </p>
+
+                        <div class="my-6 py-5 border-y border-stone-200">
+                            <p class="text-sm text-stone-500">De <span class="line-through">R$ 39,90</span> por apenas:</p>
+                            <div class="flex items-baseline gap-1 mt-1">
+                                <span class="text-lg font-bold text-natal-pinheiro">R$</span>
+                                <span class="font-serif text-5xl font-bold text-natal-pinheiro">19,90</span>
+                                <span class="text-xs text-stone-500 ml-1">pagamento único</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm sm:text-base text-stone-700 mb-8">
+                            <li class="flex items-start gap-3">
+                                <span class="text-natal-pinheiro font-bold mt-0.5">✓</span>
+                                <span><strong>10 Quadros Decorativos</strong> em formato A4</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-natal-pinheiro font-bold mt-0.5">✓</span>
+                                <span>Guia de Impressão Rápido (PDF)</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-stone-400">
+                                <span class="mt-0.5">✕</span>
+                                <span class="line-through">15 Cartões de Natal Dobráveis</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-stone-400">
+                                <span class="mt-0.5">✕</span>
+                                <span class="line-through">10 Tags "De / Para" para Presentes</span>
+                            </li>
+                            <li class="flex items-start gap-3 text-stone-400">
+                                <span class="mt-0.5">✕</span>
+                                <span class="line-through">Bônus Exclusivos de Ceia e Molduras</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <!-- ================================================================= -->
+                        <!-- ESPAÇO PARA COLAR O LINK DO CHECKOUT DO PACOTE ESSENCIAL (R$19,90) -->
+                        <!-- Substitua "https://SEU-LINK-DE-CHECKOUT-ESSENCIAL.com" abaixo     -->
+                        <!-- ================================================================= -->
+                        <a id="btn-checkout-essencial"
+                           href="https://SEU-LINK-DE-CHECKOUT-ESSENCIAL.com"
+                           onclick="verificarLinkCheckout(event, 'essencial')"
+                           class="block w-full text-center bg-natal-pinheiro hover:bg-natal-pinheiroClaro text-white font-bold text-sm sm:text-base py-4 px-6 rounded-2xl shadow-md transition transform hover:-translate-y-0.5">
+                            QUERO APENAS O PACOTE ESSENCIAL
+                        </a>
+                        <p class="text-center text-xs text-stone-500 mt-3">
+                            🔒 Compra 100% segura • Acesso imediato
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ========================================================= -->
+                <!-- CARD 2: KIT GALERIA COMPLETO (MAIS VENDIDO)               -->
+                <!-- ========================================================= -->
+                <div class="relative bg-white text-natal-texto rounded-3xl p-8 sm:p-10 shadow-2xl border-4 border-amber-500 flex flex-col justify-between lg:-translate-y-2">
+                    <!-- Selo Mais Vendido -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 gold-gradient text-white text-xs sm:text-sm font-bold uppercase tracking-widest px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                        ⭐ MAIS VENDIDO • MELHOR ESCOLHA
+                    </div>
+
+                    <div>
+                        <span class="inline-block bg-red-100 text-natal-bordo text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mt-2">
+                            Coleção Completa + Bônus
+                        </span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-natal-bordo mt-3">
+                            Kit Galeria Completo
+                        </h3>
+                        <p class="text-stone-600 text-sm mt-2">
+                            A experiência completa de decoração e presentes para o seu Natal.
+                        </p>
+
+                        <div class="my-6 py-5 border-y border-amber-200/80 bg-amber-50/40 -mx-4 px-4 rounded-xl">
+                            <p class="text-sm text-stone-500">De <span class="line-through">R$ 79,90</span> por apenas:</p>
+                            <div class="flex items-baseline gap-1 mt-1">
+                                <span class="text-lg font-bold text-natal-bordo">R$</span>
+                                <span class="font-serif text-5xl sm:text-6xl font-bold text-natal-bordo">29,90</span>
+                                <span class="text-xs text-stone-600 ml-1">pagamento único</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3.5 text-sm sm:text-base text-stone-800 mb-8">
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-natal-pinheiro flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
+                                <span><strong>Todos os 20 Quadros Decorativos (A4)</strong> em alta resolução</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-natal-pinheiro flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
+                                <span><strong>15 Cartões de Natal Dobráveis</strong> com mensagens</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-natal-pinheiro flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
+                                <span><strong>10 Tags "De / Para"</strong> para Presentes</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-natal-pinheiro flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">✓</span>
+                                <span><strong>Guia Prático de Impressão (PDF)</strong> completo</span>
+                            </li>
+                            <li class="flex items-start gap-3 bg-amber-50 p-2.5 rounded-xl border border-amber-200/80">
+                                <span class="text-base shrink-0">🎁</span>
+                                <span class="font-semibold text-amber-950">Todos os Bônus Exclusivos incluídos (Guia de Molduras + Plaquinhas de Ceia)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <!-- ================================================================= -->
+                        <!-- ESPAÇO PARA COLAR O LINK DO CHECKOUT DO KIT COMPLETO (R$ 29,90)   -->
+                        <!-- Substitua "https://SEU-LINK-DE-CHECKOUT-COMPLETO.com" abaixo      -->
+                        <!-- ================================================================= -->
+                        <a id="btn-checkout-completo"
+                           href="https://SEU-LINK-DE-CHECKOUT-COMPLETO.com"
+                           onclick="verificarLinkCheckout(event, 'completo')"
+                           class="block w-full text-center bordo-gradient hover:opacity-95 text-white font-bold text-sm sm:text-base py-4 px-6 rounded-2xl shadow-lg shadow-red-950/25 transition transform hover:-translate-y-0.5">
+                            QUERO O KIT COMPLETO COM DESCONTO
+                        </a>
+                        <p class="text-center text-xs text-stone-500 mt-3">
+                            🔒 Garantia de 7 dias • Liberação imediata no e-mail
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. GARANTIA INCONDICIONAL DE 7 DIAS                                   -->
+    <!-- ===================================================================== -->
+    <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-card border-2 border-amber-600/30 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+                
+                <!-- Selo Visual de Garantia 7 Dias -->
+                <div class="shrink-0">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full gold-gradient p-1.5 shadow-lg mx-auto">
+                        <div class="w-full h-full rounded-full bg-natal-creme border-2 border-dashed border-amber-700 flex flex-col items-center justify-center p-2 text-center">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-800">Garantia</span>
+                            <span class="font-serif text-4xl font-bold text-natal-bordo leading-none my-0.5">7</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-natal-pinheiro">Dias</span>
+                            <span class="text-[9px] text-stone-500 mt-0.5">100% Seguro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto da Garantia -->
+                <div class="space-y-3">
+                    <div class="inline-block bg-emerald-50 text-natal-pinheiro text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-emerald-200">
+                        🛡️ Risco Zero Para Você
+                    </div>
+                    <h2 class="font-serif text-2xl sm:text-3xl font-bold text-natal-pinheiro">
+                        Garantia Incondicional de 7 Dias
+                    </h2>
+                    <p class="text-stone-700 text-base leading-relaxed">
+                        <strong>Teste Sem Riscos:</strong> Se por qualquer motivo você achar que o kit não ajudou a deixar sua casa mais bonita neste Natal, basta nos enviar um e-mail em até 7 dias após a compra e devolvemos 100% do seu dinheiro. Sem perguntas e sem complicação.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 7. PERGUNTAS FREQUENTES (FAQ em Acordeão Interativo)                  -->
+    <!-- ===================================================================== -->
+    <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-natal-papel/60 border-t border-amber-800/10">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-natal-bordo font-semibold text-sm uppercase tracking-wider">Tire Suas Dúvidas</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-natal-pinheiro mt-2">
+                    Perguntas Frequentes
+                </h2>
+            </div>
+
+            <div class="space-y-4" id="faq-container">
+                
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-2xl border border-stone-200/90 shadow-sm overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-lg font-bold text-natal-pinheiro hover:text-natal-bordo transition cursor-pointer">
+                        <span>Como recebo o material?</span>
+                        <span class="faq-icon text-2xl font-sans font-normal text-amber-700 transition-transform duration-200">+</span>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-5 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-3">
+                        O acesso é imediato! Assim que o pagamento for confirmado, você receberá um e-mail automático com o link exclusivo para baixar todos os arquivos em PDF organizados no seu celular ou computador.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-2xl border border-stone-200/90 shadow-sm overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-lg font-bold text-natal-pinheiro hover:text-natal-bordo transition cursor-pointer">
+                        <span>Preciso de uma impressora profissional?</span>
+                        <span class="faq-icon text-2xl font-sans font-normal text-amber-700 transition-transform duration-200">+</span>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-5 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-3">
+                        Não! Os arquivos foram formatados no tamanho padrão A4 para funcionarem perfeitamente em qualquer impressora doméstica (jato de tinta ou laser). Caso não tenha impressora em casa, você também pode salvar os arquivos no celular ou pen drive e imprimir em qualquer gráfica rápida ou papelaria do seu bairro.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-2xl border border-stone-200/90 shadow-sm overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-lg font-bold text-natal-pinheiro hover:text-natal-bordo transition cursor-pointer">
+                        <span>Por quanto tempo tenho acesso aos arquivos?</span>
+                        <span class="faq-icon text-2xl font-sans font-normal text-amber-700 transition-transform duration-200">+</span>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-5 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-3">
+                        O acesso é vitalício. Você pode salvar os arquivos no seu computador, celular ou nuvem e imprimir quantas cópias quiser, tanto neste Natal quanto nos próximos anos.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-2xl border border-stone-200/90 shadow-sm overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-serif text-lg font-bold text-natal-pinheiro hover:text-natal-bordo transition cursor-pointer">
+                        <span>Quais papéis são recomendados?</span>
+                        <span class="faq-icon text-2xl font-sans font-normal text-amber-700 transition-transform duration-200">+</span>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-5 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-3">
+                        No Guia Prático de Impressão explicamos tudo de forma bem simples, mas papéis com gramatura a partir de 180g (como papel offset, couche fosco ou papel fotográfico matte) garantem cores vivas e um acabamento firme e elegante nas molduras, cartões e tags.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 8. RODAPÉ                                                             -->
+    <!-- ===================================================================== -->
+    <footer class="pinheiro-gradient text-stone-300 py-12 px-4 sm:px-6 lg:px-8 border-t border-amber-500/20">
+        <div class="max-w-5xl mx-auto flex flex-col items-center text-center space-y-4">
+            <div class="font-serif text-xl font-bold text-amber-200">
+                🎄 Kit Galeria de Natal em Casa
+            </div>
+            <p class="text-sm text-stone-300">
+                © Kit Galeria de Natal em Casa. Todos os direitos reservados.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-stone-400 pt-2">
+                <a href="#termos" onclick="abrirModalInfo(event, 'Termos de Uso', 'Este produto digital é destinado exclusivamente para uso pessoal e doméstico. Você pode imprimir quantas cópias desejar para decorar sua casa e presentear amigos e familiares. Não é permitida a revenda ou distribuição comercial dos arquivos digitais.')" class="hover:text-amber-200 transition">Termos de Uso</a>
+                <span>|</span>
+                <a href="#privacidade" onclick="abrirModalInfo(event, 'Políticas de Privacidade', 'Seus dados pessoais são utilizados exclusivamente para processar seu pedido e enviar o link de acesso ao material digital por e-mail. Respeitamos integralmente a sua privacidade e não compartilhamos suas informações com terceiros.')" class="hover:text-amber-200 transition">Políticas de Privacidade</a>
+                <span>|</span>
+                <a href="#suporte" onclick="abrirModalInfo(event, 'Suporte ao Cliente', 'Precisa de ajuda com o download ou impressão dos arquivos? Entre em contato conosco pelo e-mail de suporte informado no comprovante da sua compra. Respondemos em até 24 horas úteis!')" class="hover:text-amber-200 transition">Suporte ao Cliente</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL AMIGÁVEL (Para avisos de checkout no preview e links do rodapé) -->
+    <!-- ===================================================================== -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-7 shadow-2xl border border-amber-600/30 text-center space-y-4">
+            <div id="modal-icon" class="text-4xl">🔗</div>
+            <h3 id="modal-title" class="font-serif text-2xl font-bold text-natal-pinheiro">Título</h3>
+            <p id="modal-body" class="text-stone-600 text-sm sm:text-base leading-relaxed">Mensagem</p>
+            <div id="modal-extra" class="hidden bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs text-left text-amber-950 font-mono break-all"></div>
+            <button onclick="fecharModal()" class="w-full bordo-gradient text-white font-semibold py-3 px-6 rounded-xl hover:opacity-95 transition cursor-pointer">
+                Entendi
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts de Interatividade (FAQ, Modal e Configuração Rápida de Links) -->
+    <script>
+        // Controle do Acordeão do FAQ
+        function toggleFaq(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('.faq-icon');
+            const isHidden = answer.classList.contains('hidden');
+
+            // Fecha todos os outros itens abertos para manter o visual limpo
+            document.querySelectorAll('.faq-answer').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.faq-icon').forEach(ic => {
+                ic.textContent = '+';
+                ic.classList.remove('rotate-45');
+            });
+
+            if (isHidden) {
+                answer.classList.remove('hidden');
+                icon.textContent = '+';
+                icon.classList.add('rotate-45');
+            }
+        }
+
+        // Alterna o painel de configuração rápida de links no topo
+        function toggleConfigPanel() {
+            const panel = document.getElementById('config-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        // Aplica os links colados pelo usuário nos botões de compra
+        function aplicarLinksCheckout() {
+            const linkEssencial = document.getElementById('input-link-essencial').value.trim();
+            const linkCompleto = document.getElementById('input-link-completo').value.trim();
+
+            if (linkEssencial) {
+                document.getElementById('btn-checkout-essencial').setAttribute('href', linkEssencial);
+            }
+            if (linkCompleto) {
+                document.getElementById('btn-checkout-completo').setAttribute('href', linkCompleto);
+            }
+
+            abrirModalInfo(
+                null,
+                'Links Atualizados!',
+                'Os links de checkout foram aplicados aos botões desta sessão. Para salvar permanentemente antes de publicar seu arquivo HTML, lembre-se de substituir os links nas tags <a> correspondentes no código-fonte.',
+                '✅'
+            );
+        }
+
+        // Verifica se o link ainda está com o placeholder padrão ao clicar no preview
+        function verificarLinkCheckout(event, plano) {
+            const btn = event.currentTarget;
+            const href = btn.getAttribute('href');
+
+            if (href.includes('SEU-LINK-DE-CHECKOUT')) {
+                event.preventDefault();
+                const nomePlano = plano === 'essencial' ? 'Pacote Essencial (R$ 19,90)' : 'Kit Galeria Completo (R$ 29,90)';
+                const placeholder = plano === 'essencial'
+                    ? 'https://SEU-LINK-DE-CHECKOUT-ESSENCIAL.com'
+                    : 'https://SEU-LINK-DE-CHECKOUT-COMPLETO.com';
+
+                const modalExtra = document.getElementById('modal-extra');
+                modalExtra.textContent = 'Procure no HTML por: ' + placeholder;
+                modalExtra.classList.remove('hidden');
+
+                abrirModalInfo(
+                    null,
+                    'Espaço para Link de Checkout',
+                    `Este botão (${nomePlano}) está pronto para receber o seu link de pagamento (Kiwify, Hotmart, Eduzz, Cakto, etc.). Cole o seu link na barra superior ou substitua o endereço no código HTML antes de publicar.`,
+                    '🛒'
+                );
+            }
+        }
+
+        // Funções do Modal Informativo
+        function abrirModalInfo(event, titulo, mensagem, icone = '🎄') {
+            if (event) {
+                event.preventDefault();
+                document.getElementById('modal-extra').classList.add('hidden');
+            }
+            document.getElementById('modal-icon').textContent = icone;
+            document.getElementById('modal-title').textContent = titulo;
+            document.getElementById('modal-body').textContent = mensagem;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function fecharModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+            document.getElementById('modal-extra').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
